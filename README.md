@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AngularNodeRegister
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.2.
@@ -25,3 +26,6 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+=======
+make register app
+>>>>>>> 21b93ef0c48e5ade1b55c3d04619cccacc3d45d0
