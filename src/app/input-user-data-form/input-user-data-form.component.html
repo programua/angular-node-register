@@ -1,16 +1,19 @@
-<form>
-  <div class="form-group">
+<!-- bootstrapのバージョンが3の書き方なので注意 -->
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="form-group has-error" [ngClass]="{ 'has-error': invalidFirstName() }">
     <label for="first-name" class="control-label">First Name</label>
     <input
       type="text"
+      formControlName="first_name"
       class="form-control"
       id="first_name"
       name="first_name"
       placeholder="Martin"
     />
+    <p *ngIf="invalidFirstName()" id="first_name_error" class="help-block">invalid first name</p>
   </div>
-  <div class="form-group">
-    <label for="first-name" class="control-label">Last Name</label>
+  <div class="form-group has-error" [ngClass]="{ 'has-error': invalidLastName() }">
+    <label for="last-name" class="control-label">Last Name</label>
     <input
       type="text"
       class="form-control"
@@ -18,8 +21,9 @@
       name="last_name"
       placeholder="Toha"
     />
+    <p *ngIf="invalidLastName()" id="last_name_error" class="help-block">invalid Last name.</p>
   </div>
-  <div class="form-group">
+  <div class="form-group has-error" [ngClass]="{ 'has-error': invalidEmail() }">
     <label for="email" class="control-label">E-mail</label>
     <input
       type="text"
@@ -28,8 +32,9 @@
       name="email"
       placeholder="you@email.com"
     />
+    <p *ngIf="invalidEmail()" id="email_error" class="help-block">invalid email address.</p>
   </div>
-  <div class="form-group">
+  <div class="form-group has-error" [ngClass]="{ 'has-error': invalidZipcode() }">
     <label for="zipcode" class="control-label">Zip Code</label>
     <input
       type="text"
@@ -38,8 +43,9 @@
       name="zipcode"
       placeholder="#####"
     />
+    <p *ngIf="invalidZipcode()" id="zipcode_error" class="help-block">invalid zip code.</p>
   </div>
-  <div class="form-group">
+  <div class="form-group has-error" [ngClass]="{ 'has-error': invalidPassword() }">
     <label for="password" class="control-label">password</label>
     <input
       type="text"
@@ -48,6 +54,7 @@
       name="password"
       placeholder="password"
     />
+    <p *ngIf="invalidPassword()" id="password_error" class="help-block">invalid password.</p>
   </div>
   <div class="form-group">
     <label for="first-name" class="control-label"></label>
