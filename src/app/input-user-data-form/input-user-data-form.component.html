@@ -10,7 +10,7 @@
       name="first_name"
       placeholder="Martin"
     />
-    <p *ngIf="invalidFirstName()" id="first_name_error" class="help-block">invalid first name</p>
+    <p *ngIf="invalidFirstName()" id="first_name_error" class="help-block">{{this.serviceErrors.first_name || 'Invalid first name.'}}</p>
   </div>
   <div class="form-group has-error" [ngClass]="{ 'has-error': invalidLastName() }">
     <label for="last-name" class="control-label">Last Name</label>
@@ -21,7 +21,7 @@
       name="last_name"
       placeholder="Toha"
     />
-    <p *ngIf="invalidLastName()" id="last_name_error" class="help-block">invalid Last name.</p>
+    <p *ngIf="invalidLastName()" id="last_name_error" class="help-block">{{this.serviceErrors.last_name || 'Invalid last name.'}}</p>
   </div>
   <div class="form-group has-error" [ngClass]="{ 'has-error': invalidEmail() }">
     <label for="email" class="control-label">E-mail</label>
@@ -32,7 +32,7 @@
       name="email"
       placeholder="you@email.com"
     />
-    <p *ngIf="invalidEmail()" id="email_error" class="help-block">invalid email address.</p>
+    <p *ngIf="invalidEmail()" id="email_error" class="help-block">{{this.serviceErrors.email || 'Invalid email address.'}}</p>
   </div>
   <div class="form-group has-error" [ngClass]="{ 'has-error': invalidZipcode() }">
     <label for="zipcode" class="control-label">Zip Code</label>
@@ -43,7 +43,7 @@
       name="zipcode"
       placeholder="#####"
     />
-    <p *ngIf="invalidZipcode()" id="zipcode_error" class="help-block">invalid zip code.</p>
+    <p *ngIf="invalidZipcode()" id="zipcode_error" class="help-block">{{this.serviceErrors.zipcode || 'Invalid zip code.'}}</p>
   </div>
   <div class="form-group has-error" [ngClass]="{ 'has-error': invalidPassword() }">
     <label for="password" class="control-label">password</label>
@@ -54,7 +54,7 @@
       name="password"
       placeholder="password"
     />
-    <p *ngIf="invalidPassword()" id="password_error" class="help-block">invalid password.</p>
+    <p *ngIf="invalidPassword()" id="password_error" class="help-block">{{this.serviceErrors.pasword || 'Invalid password.'}}</p>
   </div>
   <div class="form-group">
     <label for="first-name" class="control-label"></label>

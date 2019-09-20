@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'input-user-data-form',
@@ -11,26 +13,30 @@ export class InputUserDataFormComponent implements OnInit {
   submitted = false;
   userForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) {
+    this.http.get('/api/v1/generate_uid').subscribe((data:any) => {
+      this.guid = data.guid;
+    })
+  }
 
   invalidFirstName() {
-    return (this.submitted && this.userForm.controls.first_name.errors != null);
+    return (this.submitted && (this.serviceErrors.first_name != null || this.userForm.controls.first_name.errors != null));
   }
 
   invalidLastName() {
-    return (this.submitted && this.userForm.controls.last_name.errors != null);
+    return (this.submitted && (this.serviceErrors.last_name != null || this.userForm.controls.last_name.errors != null));
   }
 
   invalidEmail() {
-    return (this.submitted && this.userForm.controls.email.errors != null);
+    return (this.submitted && (this.serviceErrors.email != null || this.userForm.controls.email.errors != null));
   }
 
   invalidZipcode() {
-    return (this.submitted && this.userForm.controls.zipcode.errors != null);
+    return (this.submitted && (this.serviceErrors.zipcode != null || this.userForm.controls.zipcode.errors != null));
   }
 
   invalidPassword() {
-    return (this.submitted && this.userForm.controls.password.errors != null);
+    return (this.submitted && (this.serviceErrors.password != null || this.userForm.controls.password.errors != null));
   }
 
   ngOnInit() {
@@ -49,6 +55,14 @@ export class InputUserDataFormComponent implements OnInit {
     if(this.userForm.invalid == true){
       return;
     }else{
+      let data: any = Object.assign({guid: this.guid}, this.userForm).value);
+      this.http.post('/api/v1/customer', data).subscribe((data:any) => {
+        let path = '/user' + data.customer.uid;
+        this.router.navigate([path]);
+      }, error => {
+        this.serviceError = error.error.error;
+      });
+
       this.registered = true;
     }
   }
