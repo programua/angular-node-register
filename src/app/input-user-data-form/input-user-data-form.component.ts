@@ -12,6 +12,8 @@ export class InputUserDataFormComponent implements OnInit {
   registered = false;
   submitted = false;
   userForm: FormGroup;
+  guid: string;
+  serviceErrors: any = {};
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) {
     this.http.get('/api/v1/generate_uid').subscribe((data:any) => {
@@ -55,12 +57,12 @@ export class InputUserDataFormComponent implements OnInit {
     if(this.userForm.invalid == true){
       return;
     }else{
-      let data: any = Object.assign({guid: this.guid}, this.userForm).value);
+      let data: any = Object.assign({guid: this.guid}, this.userForm.value);
       this.http.post('/api/v1/customer', data).subscribe((data:any) => {
         let path = '/user' + data.customer.uid;
         this.router.navigate([path]);
       }, error => {
-        this.serviceError = error.error.error;
+        this.serviceErrors = error.error.error;
       });
 
       this.registered = true;
